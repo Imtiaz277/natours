@@ -1,0 +1,91 @@
+.story{
+    width: 70%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, 0.1);
+    background-color: rgba($color-white, 0.5);
+    border-radius: $border-radius-small;
+    padding: 6rem;
+    //We use padding-left because 
+    //we just transformed (translateX(-3rem)) the circle a little bit to the left, occupying the padding-left a little bit
+    padding-left: 9rem; //This now means padding: 6rem 6rem 6rem 9rem;
+    font-size: $default-font-size;
+    transform: skewX(-7deg);
+
+    @include respond(tab-port){
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+    }
+
+    @include respond(phone){ transform: skewX(0); }
+    
+    & > *{
+        transform: skewX(7deg);
+        @include respond(phone){ transform: skewX(0); }
+    }
+    
+    &__shape{
+        width: 15rem;
+        height: 15rem;
+        float: left;
+        border-radius: 50%;
+        transform: translateX(-3rem) skewX(7deg);
+        position: relative;
+        overflow: hidden;
+
+        @supports((-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0))) or (-webkit-clip-path: polygon(0 0)){
+            //In order for shape-outside to work, the element must:
+            // 1) Be floated
+            // 2) Have width and height
+            shape-outside: circle(50% at 50% 50%);
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+            border-radius: none;
+        }
+
+        @include respond(phone){ transform: translateX(-3rem) skewX(0); }
+    }
+
+    &__caption{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%);
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        opacity: 0;
+        transition: all 0.5s;
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+    }
+    
+    &:hover &__caption{
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    &__img{
+        height: 100%;
+        //To properly center the lady in the photo
+        transform: translateX(-4rem) scale(1.4);
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+        transition: all 0.5s;
+    }
+
+    &:hover &__img{
+        transform: translateX(-4rem) scale(1);
+        //Brightness value < 100% is darker
+        //Brightness value > 100% is lighter
+        //Like a torchlight. The lower the power, the less the light
+        -webkit-filter: blur(3px) brightness(80%);
+                filter: blur(3px) brightness(80%);
+    }
+    
+    &__text{
+        transform: skewX(7deg);
+        @include respond(phone){ transform: skewX(0); }
+    }
+}

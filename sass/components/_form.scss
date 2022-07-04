@@ -1,0 +1,118 @@
+.form{
+    
+    &__group:not(:last-child){
+        margin-bottom: 2rem;
+    }
+
+    &__input{
+        font-size: 1.5rem;
+        //By default, browser will give their own font-family and color to input text, email, etc.
+        //So, you have to specify what font-family and color you want.
+        font-family: inherit;
+        color: inherit;
+        padding: 1.5rem 2rem;
+        border-radius: $border-radius-small;
+        background-color: rgba($color-white, 0.5);
+        border: none;
+        border-bottom: 0.3rem solid transparent;
+        width: 90%;
+        display: block;
+        transition: all 0.3s;
+
+        @include respond(tab-port){ width: 100%; }
+        
+        //Focus means the user click on the input element.
+        &:focus{
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+            border-bottom: 0.3rem solid $color-primary;
+        }
+        
+        //:invalid means the input user typed in is incorrect
+        //For example, no @ in email input is incorrect
+        //This means what happens when the user clicks on the element
+        // and what happens when the user typed incorrectly on the input field (text, email, etc.)
+        &:focus:invalid{
+            border-bottom: 0.3rem solid $color-secondary-dark;
+        }
+
+        &::-webkit-input-placeholder{
+            color: $color-grey-dark-2;
+        }
+    }
+    
+    &__label{
+        font-size: 1.2rem;
+        font-weight: 700;
+        //Margin-left is 2rem because the padding is 2rem for the input field
+        margin-left: 2rem;
+        margin-top: 0.7rem;
+        display: block;
+        transition: all 0.3s;
+    }
+   
+    //The + is an adjacent sibling
+    //&__input and &__label are siblings (check the html)
+    //This means select the &__input's sibling is which is &__label
+    //&__label is below the &__input.
+    //If we have more elements between these two, like divs or buttons,
+    //then, we have to use the ~, instead of +
+    
+    //btw, :placeholder-shown means we can see the placeholder that we defined in the html
+    //So this means select the element when we can see the placeholder
+    &__input:placeholder-shown + &__label{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4rem);
+    }
+
+    &__radio-input{
+        display: none;
+    }
+
+    &__radio-group{
+        width: 49%;
+        display: inline-block;
+        @include respond(tab-port){
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__radio-label{
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 4rem;
+    }
+
+    &__radio-button{
+        height: 3rem;
+        width: 3rem;
+        border: 0.5rem solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: -0.4rem;
+
+        &::after{
+            content: "";
+            display: block;
+            width: 1.3rem;
+            height: 1.3rem;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    }
+
+    &__radio-input:checked + &__radio-label &__radio-button::after{
+      opacity: 1;      
+    }
+}

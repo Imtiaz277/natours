@@ -1,0 +1,139 @@
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+@import "base/animation";
+@import "base/base";
+@import "base/typography";
+@import "base/utility";
+
+@import "components/buttons";
+@import "components/composition";
+@import "components/feature-box";
+@import "components/card";
+@import "components/story";
+@import "components/bg-video";
+@import "components/form";
+@import "components/popup";
+
+@import "layout/header";
+@import "layout/grid";
+@import "layout/footer";
+@import "layout/navigation";
+
+@import "pages/home";
+
+/*
+	Notes:
+	------
+
+	7-1 pattern. 
+	Is where we create 7 folders and 1 main sass file to import all the files that are in the 7 folders.
+
+	Example:
+	--------
+	sass/
+	|
+	|– abstracts/
+	|   |– _variables.scss    # Sass Variables
+	|   |– _mixins.scss       # Sass Mixins
+	|
+	|– vendors (means 3rd party)/
+	|   |– _bootstrap.scss    # Bootstrap
+	|
+	|– base/
+	|   |– _reset.scss        # Reset/normalize
+	|   |– _typography.scss   # Typography rules
+	|
+	|– layout/
+	|   |– _navigation.scss   # Navigation
+	|   |– _grid.scss         # Grid system
+	|   |– _header.scss       # Header
+	|   |– _footer.scss       # Footer
+	|   |– _sidebar.scss      # Sidebar
+	|   |– _forms.scss        # Forms
+	|
+	|– components/
+	|   |– _buttons.scss      # Buttons
+	|   |– _carousel.scss     # Carousel
+	|   |– _cover.scss        # Cover
+	|   |– _dropdown.scss     # Dropdown
+	|
+	|– pages/
+	|   |– _home.scss         # Home specific styles
+	|   |– _contact.scss      # Contact specific styles
+	|
+	|– themes/
+	|   |– _theme.scss        # Default theme
+	|   |– _admin.scss        # Admin theme
+	|
+	– main.scss              # Main Sass input file
+*/
+
+/*
+	Notes:
+	------
+	background-size: cover;
+	=
+	background-size: 100%;
+	
+	[class^="col-"]{
+		color:...;
+	}
+	This is called an "Attribute Selector"
+
+	Some examples of attribute:
+		[class^="col-"]{...} ---> Select all class that has the name starting with "col-"
+		[class*="col-"]{...} ---> Select all class that contains the name "col-"
+		[class$="col-"]{...} ---> Select all class that has the name ending with "col-"
+    
+	Since this is an attribute selector, you can use other attributes other than class such as src, alt, etc.
+
+	To perfectly center anything, use:
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); --> translate(x, y)
+
+	translateX(-100px)
+	Just like maths graph, 
+	negative x value means left side
+	positive x value means right side
+
+	translateY() 
+	It's not like maths graph for some reason...
+	Its the opposite
+	In CSS, Y direction moves from top to bottom.
+	negative y value means go up
+	positive y value means go down
+
+	There are two types of animation:
+	1. transition
+	2. @keyframes
+
+	For browser performance,
+	Opacity and Transform are the best properties to animate.
+	Browsers are optimized for those two properties
+
+	Clip text:
+	----------
+	background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+	Perspective:
+	------------
+	Perspective helps to make the card rotate just like in real life
+    When you rotate anything like 90 deg, the side of the object is closer to you.
+    Rotate another 90 deg, that side of object gets further away from you
+    You have to experiment with the perspective value to make the rotation works properly.
+    The lower the perspective value, the more dramatic rotation will be.
+    The higher the perspective value, it's as if you don't put perspective at all.
+
+	Backface-visibility:
+	--------------------
+	The backface-visibility property defines whether or not the back face of an element should be visible when facing the user.
+	The back face of an element is a mirror image of the front face being displayed.
+	This property is useful when an element is rotated. It lets you choose if the user should see the back face or not.
+*/

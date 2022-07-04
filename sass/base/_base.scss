@@ -1,0 +1,61 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    //This defines what 1rem is
+
+    font-size: 62.5%; //1rem = 10px; 10px/16px = 62.5%
+
+    //width < 1800?
+    @include respond(big-desktop){ font-size: 80%; } //1rem = 12px; 12px/16px = 75%
+
+    //width < 1200?
+    @include respond(tab-land){ font-size: 56.25%; } //1rem = 9px; 9px/16px = 56.25% 
+
+    //width < 900?
+    @include respond(tab-port){ font-size: 50%; } //1rem = 8px; 8px/16px = 50%
+
+    //width < 600?
+    // @include respond(phone){ font-size: 30%; } //1rem = 4.8px; 4.8px/16px = 30%
+
+/*
+    What if the screens size is currently 800px?
+
+    big-desktop is not true. Check the if statement for big-desktop to know why.
+
+    The first part, tab-land (max-width:1200px) is true (800 < 1200)
+    The second part, tab-port (max-width:900px) is also true (800 < 900)
+    
+    Both of these are conflicting css
+    
+    So which one will be applied?
+    I suggest you know how conflicting css works and how to solve them
+
+    In this case, the computer reads from top to bottom. 
+    It will first read the tab-land(max-width:1200px) and apply the styles because it's true (800 < 1200)
+    Then it will read the next line of code, which is tab-port(max-width:900px) and will aplly the styles because its true (800 < 900)
+
+    So a good practice is to write largest screen size first, then to smaller screen size.
+    This works if you are developing desktop first
+
+    If you are developing mobile first, then it is the other way around. Starting from the lowest widths to largest widths
+*/
+
+
+}
+
+body{
+    box-sizing: border-box;
+    padding: 3rem;
+    @include respond(tab-port){ padding: 0; }
+}
+
+// This is for changing the color when the user highlights the text.
+//Default is light blue and white
+::selection{
+    background-color: $color-primary;
+    color: $color-white;
+}

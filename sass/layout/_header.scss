@@ -1,0 +1,69 @@
+/*
+	Linear gradient will be displayed first,
+	then the background image is displayed behind the linear gradient
+
+	background-image( linear-gradient(), url() )
+*/
+.header {
+    height: 85vh;
+    background-image: linear-gradient(to bottom right, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url("../img/hero-small.jpg");
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    
+    //Some browsers do not support clip-path property
+    //It does not matter what value we put inside polygon. We can put any value we want.
+    //This checks if the browser the user is currently using supports clip-path
+    //If it does support clip-path, then apply the styles inside the supports block
+    @supports((-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0))) or (-webkit-clip-path: polygon(0 0)){
+        height: 95vh;
+        clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    }
+
+    //If the resolution is higher than 192 dots per inch, then load this background-image
+    // We also stated minimum width is 37.5em (600px). We do this because on smaller screens (37.5em (600px) and lower), we should use images with smaller file size
+    //What this whole thing means, display this image if the user's browser has a higher resolution AND on screen devices that are larger than 37.5em (600px).
+    //It is 125em (2000px) because the width of hero.jpg is 125em (2000px) in width. You can check the width and height of an image in vscode. Click on the image and look at bottom right.
+
+    //The comma is OR.
+
+    //Futhermore, we write -webkit-min-device-pixel-ratio
+    //because some browsers does not support min-resolution
+    //2 means 2x
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), 
+            only screen and (min-resolution: 192dpi) and (min-width: 37.5em), 
+            only screen and (min-width: 125em)
+    {
+        background-image: linear-gradient(to bottom right, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url("../img/hero.jpg");
+    }
+
+    @include respond(phone){ 
+        clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+
+    &__logo-box{
+        position: absolute;
+        top: 4rem;
+        left: 4rem; 
+    }
+
+    /*
+	    No need to specify the width. 
+	    The browser will automatically figure out the width
+	    Same thing applies vice versa. (if you only write width, height will be figured out by the browser)
+    */
+    &__logo{
+        height: 3.5rem;
+    }
+
+    &__text-box {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+}
